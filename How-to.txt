@@ -27,23 +27,23 @@ function run_iex() {
   fi
 
   # Determine if the session exists
-  if tmux has-session -t my_session 2>/dev/null; then
+  if tmux has-session -t iex_session 2>/dev/null; then
     # Send 'cd' to the current directory and clear the screen
-    tmux send-keys -t my_session "cd ${current_dir}" C-m \; send-keys -t my_session "clear" C-m
+    tmux send-keys -t iex_session "cd ${current_dir}" C-m \; send-keys -t iex_session "clear" C-m
     # Then send the command
-    tmux send-keys -t my_session "$command" C-m
+    tmux send-keys -t iex_session "$command" C-m
     # Check if we are already inside a tmux session
     if [ -z "$TMUX" ]; then
-      tmux attach-session -t my_session
+      tmux attach-session -t iex_session
     else
-      echo "Already in a tmux session. Switching to 'my_session'..."
+      echo "Already in a tmux session. Switching to 'iex_session'..."
     fi
   else
     # Create a new session with the current directory and run the command
-    tmux new-session -d -s my_session -c "$current_dir"
-    tmux send-keys -t my_session "$command" C-m
+    tmux new-session -d -s iex_session -c "$current_dir"
+    tmux send-keys -t iex_session "$command" C-m
     if [ -z "$TMUX" ]; then
-      tmux attach -t my_session
+      tmux attach -t iex_session
     fi
   fi
 }
