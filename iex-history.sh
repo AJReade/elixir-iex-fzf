@@ -31,7 +31,7 @@ fi
 
 signal_file=$(mktemp)
 
-# Ensure fzf allows for normal tab behavior and quitting with Esc
-tmux split-window -h "iex-history | fzf --multi --bind 'esc:abort' >$signal_file; if test -s $signal_file; then tmux load-buffer - <\"$signal_file\"; tmux paste-buffer -t $current_pane; else tmux kill-pane; fi"
+# perl section cuts off \n when pasting buffer to prevent auto enter 
+tmux split-window -h "iex-history | fzf --multi --bind 'esc:abort' >$signal_file; if test -s $signal_file; then perl -pe 'chomp if eof' \"$signal_file\" | tmux load-buffer - ; tmux paste-buffer -t $current_pane; else tmux kill-pane; fi"
 
 rm -f "$signal_file"
