@@ -23,4 +23,15 @@ fi
 
 # Directly use fzf within a tmux split-window, capturing the selection into tmux buffer,
 # and then paste it into the target pane.
-tmux split-window -h "iex-history | fzf --multi | tmux load-buffer - ; tmux paste-buffer -t $current_pane"
+# tmux split-window -h "iex-history | fzf --multi | tmux load-buffer - ; tmux paste-buffer -t $current_pane"
+
+
+
+# mew --> now exits with esc key
+
+signal_file=$(mktemp)
+
+# Ensure fzf allows for normal tab behavior and quitting with Esc
+tmux split-window -h "iex-history | fzf --multi --bind 'esc:abort' >$signal_file; if test -s $signal_file; then tmux load-buffer - <\"$signal_file\"; tmux paste-buffer -t $current_pane; else tmux kill-pane; fi"
+
+rm -f "$signal_file"

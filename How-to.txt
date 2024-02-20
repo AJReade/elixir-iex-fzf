@@ -5,7 +5,8 @@ bind-key -n F10 send-keys C-\\ \; detach-client
 // Scroll in tmux
 set -g mouse on
 // Call the iex-history.sh script in the project to call fzf and get the history of the iex
-bind-key C-r run-shell "zsh ~/.iex-history/iex-history.sh #{session_name} #{window_id} #D #{pane_current_command}"
+bind-key -n C-r run-shell "zsh ~/.iex-history/iex-history.sh #{session_name} #{window_id} #D #{pane_current_command}"
+
 
 
 // Set up for Zsh
