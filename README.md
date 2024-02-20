@@ -104,7 +104,7 @@ function run_iex() {
 
 ```
 
-Last step is to add the following line in your tmux config to call the script.
+Last step is to add the following line in your tmux config (.tmux.conf) to call the script.
 The tmux binding I use is `ctrl-r`, as I only use tmux for iex.
 I also use 'fnF10' to exit tmux and iex simultaneously.
 The 'set -g mouse on' allow you to scroll as normal in tmux.
